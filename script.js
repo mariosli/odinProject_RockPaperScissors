@@ -31,39 +31,80 @@ function playRPS(playerSelection, computerSelection) {
     }
 }
 
-function playGame() {
-    let userWins = 0;
-    let computerWins = 0;
-    for (let i = 0; i < 5; i++) {
-        let usersChoice = prompt("Enter rock, paper or scissors: ");
-        let computersChoice = getComputerChoice();
-        console.log(`Round number ${i+1}:`);
-        console.log(`Users choice: ${usersChoice}`);
-        console.log(`Computers choice: ${computersChoice}`);
-        if (playRPS(usersChoice, computersChoice).includes("You Win")) {
-            userWins += 1;
-            console.log("You Win this round.");
-        }
-        else if (playRPS(usersChoice, computersChoice).includes("You Lose")) {
-            computerWins += 1;
-            console.log("You Lose this round.");
-        }
-        else if (playRPS(usersChoice, computersChoice).includes("Draw")) {
-            console.log("This round is a draw.");
-        }
+function playGame(usersChoice) {
+
+    let computersChoice = getComputerChoice();
+    // console.log(`Round number ${counter+1}:`);
+    counter++;
+
+    const checkDisplayResult = document.querySelector("#displayRes");
+    if (checkDisplayResult) {
+        checkDisplayResult.remove();
     }
-    if (userWins > computerWins) {
-        return("\nYou won the game!");
+
+    const displayResult = document.createElement("div");
+    displayResult.setAttribute("id", "displayRes");
+    const userPlayed = document.createElement("p");
+    userPlayed.textContent = `Users choice: ${usersChoice}`;
+    const compPlayed = document.createElement("p");
+    compPlayed.textContent = `Computers choice: ${computersChoice}`;
+    displayResult.appendChild(userPlayed);
+    displayResult.appendChild(compPlayed);
+
+    document.body.appendChild(displayResult);
+
+    if (playRPS(usersChoice, computersChoice).includes("You Win")) {
+        userWins += 1;
+        let roundWinner = document.createElement("p");
+        roundWinner.textContent = "User wins this round";
+        displayResult.appendChild(roundWinner);
     }
-    else if (computerWins > userWins) {
-        return("\nComputer won the game!");
+    else if (playRPS(usersChoice, computersChoice).includes("You Lose")) {
+        computerWins += 1;
+        let roundWinner = document.createElement("p");
+        roundWinner.textContent = "Computer wins this round";
+        displayResult.appendChild(roundWinner);
+        //console.log("You Lose this round.");
     }
-    else {
-        return("It is a draw!");
+    else if (playRPS(usersChoice, computersChoice).includes("Draw")) {
+        let roundWinner = document.createElement("p");
+        roundWinner.textContent = "This round is a draw";
+        displayResult.appendChild(roundWinner);
+        // console.log("This round is a draw.");
+        
+    }
+
+    let score = document.createElement("p");
+    score.textContent = `The score is: User ${userWins} : ${computerWins} Computer`
+    displayResult.appendChild(score);
+
+    if (userWins > computerWins && userWins === 5) {
+        return "User won";
+    }
+    else if (computerWins > userWins && computerWins === 5) {
+        return "Computer won";
     }
 }
+
+function handleButtonClick(usersChoice) {
+    const result = playGame(usersChoice);
+    if (result === "User won") {
+        if(alert(`${result} the game. Thank you for playing.`)){}
+        else    window.location.reload(); 
+    }
+    else if(result === "Computer won") {
+        if(alert(`${result} the game. Thank you for playing.`)){}
+        else    window.location.reload(); 
+    }
+}
+
+let counter = 0;
+let userWins = 0;
+let computerWins = 0;
+
+
 // let computersChoice = getComputerChoice();
 // console.log(computersChoice + "\n");
 // console.log(playRPS("paper", computersChoice));
 
-console.log(playGame());
+// console.log(playGame());

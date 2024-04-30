@@ -4,9 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 20px;
+        }
+        body button {
+            width: 200px;
+            height: 50px;
+            font-size: large;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="button-selection">
+        <button onclick="handleButtonClick('rock')">Rock</button>
+        <button onclick="handleButtonClick('paper')">Paper</button>
+        <button onclick="handleButtonClick('scissors')">Scissors</button>
+    </div>
 </body>
 <script src="script.js">
 </script>
